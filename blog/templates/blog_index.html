@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+    <div class="container py-0 py-sm-1 text-center">
+        <h1>Blogs</h1>
+    </div>
+    <div class="row">
+  <div class="col-md-8 offset-md-2">
+    <p>
+      I am currently highly active,However, I'm the primary author of the projects outlined below and
+      contributor to 100s of others. I also run or have otherwise
+      created a number of
+    </p>
+    <p>
+      You can usually find my very latest programming interests by following me
+      <strong>Link</a></strong>.
+    </p>
+  </div>
+</div>
+    <hr>
+    {% for post in posts %}
+    <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+    <small>
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+        {% endfor %}
+    </small>
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+</div>
+{% endblock %}
